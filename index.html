@@ -1,122 +1,435 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#173d73">
-<title>أبطال أكتوبر - لعبة الصور</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;padding:12px;background:linear-gradient(145deg,#eaf4ff,#fff4d8);font-family:Tahoma,Arial,sans-serif;color:#17304f;min-height:100vh}
-main{max-width:760px;margin:auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 10px 30px #173d7320}
-header{background:linear-gradient(135deg,#173d73,#2876a3);color:#fff;text-align:center;padding:20px 12px}
-h1{font-size:clamp(25px,6vw,38px);margin:0 0 7px}header .sub{font-size:34px}
-.content{padding:16px}.top{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:bold;flex-wrap:wrap}
-.pill{background:#edf3fa;border-radius:20px;padding:8px 12px}
-.track{height:9px;background:#e8edf4;border-radius:20px;margin:12px 0 18px;overflow:hidden}.bar{height:100%;width:0;background:#e2ad32;transition:width .2s}
-h2{text-align:center;font-size:clamp(21px,5vw,28px);margin:8px 0 6px}
-.instruction{text-align:center;color:#64758a;margin:0 0 14px;font-size:15px}
-.panel{background:linear-gradient(135deg,#eef7ff,#fff7e5);border-radius:18px;padding:14px;margin:12px 0}
-.matchgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.col{display:grid;gap:10px}
-.tile{border:3px solid #dce7f2;border-radius:17px;background:#fff;min-height:104px;display:grid;place-items:center;font-size:clamp(45px,11vw,65px);cursor:pointer;position:relative;transition:.15s}
-.tile:focus-visible{outline:4px solid #e5b23c}
-.tile.selected{border-color:#e2ad32;background:#fff5d8;transform:scale(1.03)}
-.tile.done{border-color:#35a968;background:#e7f7ed;cursor:default}
-.tile.wrong{border-color:#d96f60;animation:shake .2s}
-@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.sequence{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:15px 0}
-.slot{width:29%;min-width:82px;min-height:94px;border:3px dashed #a9bdd1;border-radius:16px;background:#f9fbfe;display:grid;place-items:center;font-size:44px;position:relative}
-.slot.filled{border-style:solid;border-color:#3ca66a;background:#e8f7ed}
-.slot small{font-size:12px;color:#6b7e92;position:absolute;bottom:5px}
-.pieces{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
-.piece{font-size:45px;min-height:83px;border:3px solid #dce7f2;border-radius:16px;background:#fff;cursor:pointer}
-.piece:disabled{opacity:.35}
-.feedback{display:none;text-align:center;padding:12px;border-radius:14px;background:#eef7ef;font-weight:bold;font-size:19px;margin-top:12px}
-.feedback.show{display:block}
-.action{border:0;border-radius:15px;padding:14px 18px;background:#e2ad32;color:#17304f;font-size:18px;font-weight:bold;width:100%;margin-top:14px;cursor:pointer}
-.secondary{background:#eaf1f8}
-.result{text-align:center;padding:20px}.result .trophy{font-size:80px}.result h2{font-size:30px}
-footer{text-align:center;color:#718197;padding:0 12px 18px;font-size:13px}
-@media(min-width:560px){.tile{min-height:130px}.slot{min-height:112px}}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#173d73">
+    <title>أبطال أكتوبر - لعبة الصور</title>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            padding: 12px;
+            background: linear-gradient(145deg, #eaf4ff, #fff4d8);
+            font-family: Tahoma, Arial, sans-serif;
+            color: #17304f;
+            min-height: 100vh
+        }
+
+        main {
+            max-width: 760px;
+            margin: auto;
+            background: #fff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px #173d7320
+        }
+
+        header {
+            background: linear-gradient(135deg, #173d73, #2876a3);
+            color: #fff;
+            text-align: center;
+            padding: 20px 12px
+        }
+
+        h1 {
+            font-size: clamp(25px, 6vw, 38px);
+            margin: 0 0 7px
+        }
+
+        header .sub {
+            font-size: 34px
+        }
+
+        .content {
+            padding: 16px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            align-items: center;
+            font-weight: bold;
+            flex-wrap: wrap
+        }
+
+        .pill {
+            background: #edf3fa;
+            border-radius: 20px;
+            padding: 8px 12px
+        }
+
+        .track {
+            height: 9px;
+            background: #e8edf4;
+            border-radius: 20px;
+            margin: 12px 0 18px;
+            overflow: hidden
+        }
+
+        .bar {
+            height: 100%;
+            width: 0;
+            background: #e2ad32;
+            transition: width .2s
+        }
+
+        h2 {
+            text-align: center;
+            font-size: clamp(21px, 5vw, 28px);
+            margin: 8px 0 6px
+        }
+
+        .instruction {
+            text-align: center;
+            color: #64758a;
+            margin: 0 0 14px;
+            font-size: 15px
+        }
+
+        .panel {
+            background: linear-gradient(135deg, #eef7ff, #fff7e5);
+            border-radius: 18px;
+            padding: 14px;
+            margin: 12px 0
+        }
+
+        .matchgrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        .col {
+            display: grid;
+            gap: 10px
+        }
+
+        .tile {
+            border: 3px solid #dce7f2;
+            border-radius: 17px;
+            background: #fff;
+            min-height: 104px;
+            display: grid;
+            place-items: center;
+            font-size: clamp(45px, 11vw, 65px);
+            cursor: pointer;
+            position: relative;
+            transition: .15s
+        }
+
+        .tile:focus-visible {
+            outline: 4px solid #e5b23c
+        }
+
+        .tile.selected {
+            border-color: #e2ad32;
+            background: #fff5d8;
+            transform: scale(1.03)
+        }
+
+        .tile.done {
+            border-color: #35a968;
+            background: #e7f7ed;
+            cursor: default
+        }
+
+        .tile.wrong {
+            border-color: #d96f60;
+            animation: shake .2s
+        }
+
+        @keyframes shake {
+            25% {
+                transform: translateX(-4px)
+            }
+
+            75% {
+                transform: translateX(4px)
+            }
+        }
+
+        .sequence {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 15px 0
+        }
+
+        .slot {
+            width: 29%;
+            min-width: 82px;
+            min-height: 94px;
+            border: 3px dashed #a9bdd1;
+            border-radius: 16px;
+            background: #f9fbfe;
+            display: grid;
+            place-items: center;
+            font-size: 44px;
+            position: relative
+        }
+
+        .slot.filled {
+            border-style: solid;
+            border-color: #3ca66a;
+            background: #e8f7ed
+        }
+
+        .slot small {
+            font-size: 12px;
+            color: #6b7e92;
+            position: absolute;
+            bottom: 5px
+        }
+
+        .pieces {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            margin-top: 12px
+        }
+
+        .piece {
+            font-size: 45px;
+            min-height: 83px;
+            border: 3px solid #dce7f2;
+            border-radius: 16px;
+            background: #fff;
+            cursor: pointer
+        }
+
+        .piece:disabled {
+            opacity: .35
+        }
+
+        .feedback {
+            display: none;
+            text-align: center;
+            padding: 12px;
+            border-radius: 14px;
+            background: #eef7ef;
+            font-weight: bold;
+            font-size: 19px;
+            margin-top: 12px
+        }
+
+        .feedback.show {
+            display: block
+        }
+
+        .action {
+            border: 0;
+            border-radius: 15px;
+            padding: 14px 18px;
+            background: #e2ad32;
+            color: #17304f;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 14px;
+            cursor: pointer
+        }
+
+        .secondary {
+            background: #eaf1f8
+        }
+
+        .result {
+            text-align: center;
+            padding: 20px
+        }
+
+        .result .trophy {
+            font-size: 80px
+        }
+
+        .result h2 {
+            font-size: 30px
+        }
+
+        footer {
+            text-align: center;
+            color: #718197;
+            padding: 0 12px 18px;
+            font-size: 13px
+        }
+
+        @media(min-width:560px) {
+            .tile {
+                min-height: 130px
+            }
+
+            .slot {
+                min-height: 112px
+            }
+        }
+
+        header {
+            position: relative;
+            padding-top: 65px;
+        }
+
+        .page-link {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            background: #e2ad32;
+            color: #17304f;
+
+            padding: 10px 15px;
+            border-radius: 15px;
+
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+
+            box-shadow: 0 4px 10px #0002;
+            transition: 0.2s;
+        }
+
+        .page-link:hover {
+            background: #f5c64b;
+            transform: scale(1.05);
+        }
+
+        .page-link:active {
+            transform: scale(0.95);
+        }
+
+        .page-link2 {
+            position: absolute;
+            top: 12px;
+            right: 110px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            background: #e2ad32;
+            color: #17304f;
+
+            padding: 10px 15px;
+            border-radius: 15px;
+
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+
+            box-shadow: 0 4px 10px #0002;
+            transition: 0.2s;
+        }
+
+        .page-link2:hover {
+            background: #f5c64b;
+            transform: scale(1.05);
+        }
+
+        .page-link2:active {
+            transform: scale(0.95);
+        }
+    </style>
 </head>
+
 <body>
-<main>
-<header>
-<h1>أبطال أكتوبر الصغار</h1>
-<div class="sub">🇪🇬 ⭐ 🪖</div>
-</header>
-<section class="content" id="game">
-<div class="top"><span class="pill" id="stage">⭐ لعبة الصور ١</span><span class="pill" id="score">🌟 ٠</span></div>
-<div class="track"><div class="bar" id="bar"></div></div>
-<div id="activity"></div>
-<div class="feedback" id="feedback" aria-live="polite"></div>
-<button class="action" id="next" hidden>نكمل ⭐</button>
-</section>
-<section class="result" id="result" hidden>
-<div class="trophy">🏆</div><h2>برافو يا بطل!</h2>
-<div style="font-size:32px" id="stars">⭐⭐⭐</div>
-<p>تحيا مصر 🇪🇬</p>
-<button class="action" id="again">نلعب تاني 🔄</button>
-</section>
-<footer>لعبة بالصور فقط — المعلمة تشرح المطلوب شفهياً، والطفل يختار باللمس ❤️</footer>
-</main>
-<script>
-const $=id=>document.getElementById(id);
-let stage=0,score=0,selected=null,matched=0,seq=[];
-const activities=[
- {type:"match",title:"",hint:"",left:["🇪🇬","🪖","🚤"],right:["🚤","🇪🇬","🪖"],pairs:[0,1,2]},
- {type:"match",title:"",hint:"",left:["🌊","⭐","🏅"],right:["🏅","🌊","⭐"],pairs:[1,2,0]},
- {type:"sort",title:"",hint:"",correct:["🪖","🚤","🇪🇬"],pieces:["🇪🇬","🪖","🚤"]}
-];
-function update(){
- $("stage").textContent=["⭐ لعبة الصور ١","⭐ لعبة الصور ٢","⭐ رتب الصور"][stage];
- $("score").textContent="🌟 "+score;
- $("bar").style.width=(stage/activities.length*100)+"%";
-}
-function feedback(msg){$("feedback").textContent=msg;$("feedback").classList.add("show");}
-function start(){
- update();$("feedback").classList.remove("show");$("feedback").textContent="";$("next").hidden=true;
- const a=activities[stage];const root=$("activity");root.innerHTML="";
- if(a.type==="match")renderMatch(a,root);else renderSort(a,root);
-}
-function renderMatch(a,root){
- root.innerHTML='<h2>🧩</h2><p class="instruction">وصّل كل صورتين زي بعض</p><div class="panel matchgrid"><div class="col" id="left"></div><div class="col" id="right"></div></div>';
- // right side shuffled; the child matches by identical picture
- a.left.forEach((emoji,i)=>{let b=document.createElement("button");b.className="tile";b.textContent=emoji;b.dataset.side="L";b.dataset.id=emoji;b.setAttribute("aria-label","صورة");b.onclick=()=>chooseMatch(b);$("left").appendChild(b);});
- a.right.forEach((emoji,i)=>{let b=document.createElement("button");b.className="tile";b.textContent=emoji;b.dataset.side="R";b.dataset.id=emoji;b.setAttribute("aria-label","صورة");b.onclick=()=>chooseMatch(b);$("right").appendChild(b);});
- matched=0;selected=null;
-}
-function chooseMatch(b){
- if(b.classList.contains("done"))return;
- if(!selected){selected=b;b.classList.add("selected");return;}
- if(selected===b){selected.classList.remove("selected");selected=null;return;}
- if(selected.dataset.side===b.dataset.side){selected.classList.remove("selected");selected=b;b.classList.add("selected");return;}
- if(selected.dataset.id===b.dataset.id){
-  selected.classList.remove("selected");selected.classList.add("done");b.classList.add("done");selected.disabled=true;b.disabled=true;selected=null;matched++;
-  if(matched===3){score++;$("score").textContent="🌟 "+score;feedback("👏 برافو!");$("next").hidden=false;}
- }else{
-  const first=selected;first.classList.remove("selected");first.classList.add("wrong");b.classList.add("wrong");selected=null;
-  setTimeout(()=>{first.classList.remove("wrong");b.classList.remove("wrong");},350);
- }
-}
-function renderSort(a,root){
- root.innerHTML='<h2>🔢</h2><p class="instruction">رتّب الصور من الأول للآخر</p><div class="panel"><div class="sequence" id="slots"></div><div class="pieces" id="pieces"></div></div>';
- a.correct.forEach((_,i)=>{let s=document.createElement("div");s.className="slot";s.id="slot"+i;s.innerHTML="<small>"+["١","٢","٣"][i]+"</small>";$("slots").appendChild(s);});
- a.pieces.forEach((emoji,i)=>{let b=document.createElement("button");b.className="piece";b.textContent=emoji;b.onclick=()=>choosePiece(emoji,b);$("pieces").appendChild(b);});
- seq=[];
-}
-function choosePiece(emoji,b){
- const a=activities[stage];if(b.disabled)return;
- const pos=seq.length;
- if(emoji!==a.correct[pos]){b.animate([{transform:"translateX(0)"},{transform:"translateX(-5px)"},{transform:"translateX(5px)"},{transform:"translateX(0)"}],{duration:220});return;}
- seq.push(emoji);b.disabled=true;$("slot"+pos).textContent=emoji;$("slot"+pos).classList.add("filled");
- if(seq.length===3){score++;$("score").textContent="🌟 "+score;feedback("🌟 ممتاز! رتبت الصور صح!");$("next").hidden=false;}
-}
-$("next").onclick=()=>{stage++;if(stage<activities.length)start();else{$("game").hidden=true;$("result").hidden=false;$("stars").textContent="⭐".repeat(score+1);}};
-$("again").onclick=()=>{stage=0;score=0;$("result").hidden=true;$("game").hidden=false;start();};
-start();
-</script>
+    <main>
+        <header>
+            <a href="./index2.html" class="page-link" target="_self">
+                game 2
+            </a>
+            <a href="./index3.html" class="page-link2" target="_self">
+                game 3
+            </a>
+            <h1>أبطال أكتوبر الصغار</h1>
+            <div class="sub">🇪🇬 ⭐ 🪖</div>
+        </header>
+        <section class="content" id="game">
+            <div class="top"><span class="pill" id="stage">⭐ لعبة الصور ١</span><span class="pill" id="score">🌟
+                    ٠</span></div>
+            <div class="track">
+                <div class="bar" id="bar"></div>
+            </div>
+            <div id="activity"></div>
+            <div class="feedback" id="feedback" aria-live="polite"></div>
+            <button class="action" id="next" hidden>نكمل ⭐</button>
+        </section>
+        <section class="result" id="result" hidden>
+            <div class="trophy">🏆</div>
+            <h2>برافو يا بطل!</h2>
+            <div style="font-size:32px" id="stars">⭐⭐⭐</div>
+            <p>تحيا مصر 🇪🇬</p>
+            <button class="action" id="again">نلعب تاني 🔄</button>
+        </section>
+        <footer>لعبة بالصور فقط — المعلمة تشرح المطلوب شفهياً، والطفل يختار باللمس ❤️</footer>
+    </main>
+    <script>
+        const $ = id => document.getElementById(id);
+        let stage = 0, score = 0, selected = null, matched = 0, seq = [];
+        const activities = [
+            { type: "match", title: "", hint: "", left: ["🇪🇬", "🪖", "🚤"], right: ["🚤", "🇪🇬", "🪖"], pairs: [0, 1, 2] },
+            { type: "match", title: "", hint: "", left: ["🌊", "⭐", "🏅"], right: ["🏅", "🌊", "⭐"], pairs: [1, 2, 0] },
+            { type: "sort", title: "", hint: "", correct: ["🪖", "🚤", "🇪🇬"], pieces: ["🇪🇬", "🪖", "🚤"] }
+        ];
+        function update() {
+            $("stage").textContent = ["⭐ لعبة الصور ١", "⭐ لعبة الصور ٢", "⭐ رتب الصور"][stage];
+            $("score").textContent = "🌟 " + score;
+            $("bar").style.width = (stage / activities.length * 100) + "%";
+        }
+        function feedback(msg) { $("feedback").textContent = msg; $("feedback").classList.add("show"); }
+        function start() {
+            update(); $("feedback").classList.remove("show"); $("feedback").textContent = ""; $("next").hidden = true;
+            const a = activities[stage]; const root = $("activity"); root.innerHTML = "";
+            if (a.type === "match") renderMatch(a, root); else renderSort(a, root);
+        }
+        function renderMatch(a, root) {
+            root.innerHTML = '<h2>🧩</h2><p class="instruction">وصّل كل صورتين زي بعض</p><div class="panel matchgrid"><div class="col" id="left"></div><div class="col" id="right"></div></div>';
+            // right side shuffled; the child matches by identical picture
+            a.left.forEach((emoji, i) => { let b = document.createElement("button"); b.className = "tile"; b.textContent = emoji; b.dataset.side = "L"; b.dataset.id = emoji; b.setAttribute("aria-label", "صورة"); b.onclick = () => chooseMatch(b); $("left").appendChild(b); });
+            a.right.forEach((emoji, i) => { let b = document.createElement("button"); b.className = "tile"; b.textContent = emoji; b.dataset.side = "R"; b.dataset.id = emoji; b.setAttribute("aria-label", "صورة"); b.onclick = () => chooseMatch(b); $("right").appendChild(b); });
+            matched = 0; selected = null;
+        }
+        function chooseMatch(b) {
+            if (b.classList.contains("done")) return;
+            if (!selected) { selected = b; b.classList.add("selected"); return; }
+            if (selected === b) { selected.classList.remove("selected"); selected = null; return; }
+            if (selected.dataset.side === b.dataset.side) { selected.classList.remove("selected"); selected = b; b.classList.add("selected"); return; }
+            if (selected.dataset.id === b.dataset.id) {
+                selected.classList.remove("selected"); selected.classList.add("done"); b.classList.add("done"); selected.disabled = true; b.disabled = true; selected = null; matched++;
+                if (matched === 3) { score++; $("score").textContent = "🌟 " + score; feedback("👏 برافو!"); $("next").hidden = false; }
+            } else {
+                const first = selected; first.classList.remove("selected"); first.classList.add("wrong"); b.classList.add("wrong"); selected = null;
+                setTimeout(() => { first.classList.remove("wrong"); b.classList.remove("wrong"); }, 350);
+            }
+        }
+        function renderSort(a, root) {
+            root.innerHTML = '<h2>🔢</h2><p class="instruction">رتّب الصور من الأول للآخر</p><div class="panel"><div class="sequence" id="slots"></div><div class="pieces" id="pieces"></div></div>';
+            a.correct.forEach((_, i) => { let s = document.createElement("div"); s.className = "slot"; s.id = "slot" + i; s.innerHTML = "<small>" + ["١", "٢", "٣"][i] + "</small>"; $("slots").appendChild(s); });
+            a.pieces.forEach((emoji, i) => { let b = document.createElement("button"); b.className = "piece"; b.textContent = emoji; b.onclick = () => choosePiece(emoji, b); $("pieces").appendChild(b); });
+            seq = [];
+        }
+        function choosePiece(emoji, b) {
+            const a = activities[stage]; if (b.disabled) return;
+            const pos = seq.length;
+            if (emoji !== a.correct[pos]) { b.animate([{ transform: "translateX(0)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(0)" }], { duration: 220 }); return; }
+            seq.push(emoji); b.disabled = true; $("slot" + pos).textContent = emoji; $("slot" + pos).classList.add("filled");
+            if (seq.length === 3) { score++; $("score").textContent = "🌟 " + score; feedback("🌟 ممتاز! رتبت الصور صح!"); $("next").hidden = false; }
+        }
+        $("next").onclick = () => { stage++; if (stage < activities.length) start(); else { $("game").hidden = true; $("result").hidden = false; $("stars").textContent = "⭐".repeat(score + 1); } };
+        $("again").onclick = () => { stage = 0; score = 0; $("result").hidden = true; $("game").hidden = false; start(); };
+        start();
+    </script>
 </body>
+
 </html>
